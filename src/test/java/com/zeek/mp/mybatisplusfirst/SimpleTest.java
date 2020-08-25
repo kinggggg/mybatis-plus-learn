@@ -26,6 +26,19 @@ public class SimpleTest {
     private EmployeeMapper employeeMapper;
 
     @Test
+    public void testCommonInsert() {
+
+        // 初始化Employee对象
+        Employee employee = new Employee();
+        employee.setLastName("MP");
+        employee.setEmail("mp@atguigu.com");
+        employee.setGender(1);
+        employee.setAge(22);
+
+        employeeMapper.insert(employee);
+    }
+
+    @Test
     public void selectAllEmployees() {
         List<Employee> list = employeeMapper.selectList(null);
         Assert.assertEquals(4, list.size());
