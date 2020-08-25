@@ -14,10 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-/**
- * @author liweibo03 <liweibo03@kuaishou.com>
- * Created on 2020-08-18
- */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SimpleTest {
@@ -30,18 +27,14 @@ public class SimpleTest {
 
     @Test
     public void selectAllEmployees() {
-
         List<Employee> list = employeeMapper.selectList(null);
         Assert.assertEquals(4, list.size());
-
     }
 
     @Test
     public void select() {
-
         List<User> list = userMapper.selectList(null);
         Assert.assertEquals(5, list.size());
-
     }
 
     /**

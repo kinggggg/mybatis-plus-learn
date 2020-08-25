@@ -4,10 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-/**
- * @author liweibo03 <liweibo03@kuaishou.com>
- * Created on 2020-08-18
- */
+
 @Data
 public class User {
 
