@@ -5,6 +5,7 @@ import com.zeek.mp.mybatisplusfirst.dao.EmployeeMapper;
 import com.zeek.mp.mybatisplusfirst.dao.UserMapper;
 import com.zeek.mp.mybatisplusfirst.entity.Employee;
 import com.zeek.mp.mybatisplusfirst.entity.User;
+import com.zeek.mp.mybatisplusfirst.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,27 +22,41 @@ public class SimpleTest {
 
     @Autowired
     private UserMapper userMapper;
+//
+//    @Autowired
+//    private EmployeeMapper employeeMapper;
 
     @Autowired
-    private EmployeeMapper employeeMapper;
+    private UserService userService;
+
+//    @Test
+//    public void testCommonInsert() {
+//
+//        // 初始化Employee对象
+//        Employee employee = new Employee();
+//        employee.setLastName("MP");
+//        employee.setEmail("mp@atguigu.com");
+//        employee.setGender(1);
+//        employee.setAge(22);
+//
+//        employeeMapper.insert(employee);
+//    }
+//
+//    @Test
+//    public void selectAllEmployees() {
+//        List<Employee> list = employeeMapper.selectList(null);
+//        Assert.assertEquals(4, list.size());
+//    }
 
     @Test
-    public void testCommonInsert() {
+    public void testUserInsert() {
+        User user = new User();
+        user.setAge(55);
+        user.setEmail("test55@test.com");
+        user.setManagerId(1087982257332887553l);
+        user.setName("test55");
 
-        // 初始化Employee对象
-        Employee employee = new Employee();
-        employee.setLastName("MP");
-        employee.setEmail("mp@atguigu.com");
-        employee.setGender(1);
-        employee.setAge(22);
-
-        employeeMapper.insert(employee);
-    }
-
-    @Test
-    public void selectAllEmployees() {
-        List<Employee> list = employeeMapper.selectList(null);
-        Assert.assertEquals(4, list.size());
+        userService.insert(user);
     }
 
     @Test
