@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RunWith(SpringRunner.class)
@@ -78,5 +79,52 @@ public class SimpleTest {
         List<User> list = userMapper.selectList(queryWrapper);
 
         list.forEach(System.out::print);
+    }
+
+    /**
+     * 2、名字中包含雨年并且龄大于等于20且小于等于40并且email不为空
+     *  name like '%雨%' and age between 20 and 40 and email is not null
+     */
+    @Test
+    public void select2() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", "雨");
+        queryWrapper.between("age", 20, 40);
+        queryWrapper.isNotNull("email");
+
+        List<User> list = userMapper.selectList(queryWrapper);
+        list.forEach(System.out::print);
+    }
+
+    /**
+     * 3. 名字为王姓或者年龄大于等于25，按照年龄降序排列，年龄相同按照id升序排列
+     *     name like '王%' or age>=25 order by age desc,id asc
+     */
+    @Test
+    public void select3() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", "王")
+                .or().ge("age", 25)
+                .orderByDesc("age")
+                .orderByAsc("id");
+
+        List<User> list = userMapper.selectList(queryWrapper);
+        list.forEach(System.out::println);
+    }
+
+    /**
+     * 4、创建日期为2019年2月14日并且直属上级为名字为王姓
+     *  有问题
+     */
+    @Test
+    public void select4() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("date(create_time)", "2019-02-14")
+                .in("manager_id", userMapper.selectList(queryWrapper.like("name", "王")).stream().collect(Collectors.toList()));
+
+        List<User> list = userMapper.selectList(queryWrapper);
+        list.forEach(System.out::println);
+
+
     }
 }
