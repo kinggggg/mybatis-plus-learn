@@ -28,8 +28,8 @@ public class InsertTest {
     public void insert1() {
 
         User user = new User();
-        user.setName("刘明强");
-        user.setAge(31);
+        user.setName("向南");
+        user.setAge(28);
         user.setManagerId(1088248166370832385l);
         user.setCreateTime(LocalDateTime.now());
 
