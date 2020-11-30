@@ -114,17 +114,28 @@ public class SimpleTest {
 
     /**
      * 4、创建日期为2019年2月14日并且直属上级为名字为王姓
-     *  有问题
      */
     @Test
     public void select4() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        List<Long> managerIds = userMapper.selectList(queryWrapper.like("name", "王")).stream().map(User::getId).collect(Collectors.toList());
+        queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("date(create_time)", "2019-02-14")
-                .in("manager_id", userMapper.selectList(queryWrapper.like("name", "王")).stream().collect(Collectors.toList()));
+                .in("manager_id", managerIds);
 
         List<User> list = userMapper.selectList(queryWrapper);
         list.forEach(System.out::println);
-
-
     }
+
+    @Test
+    public void select4_1() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("date(create_time)", "2019-02-14")
+                .inSql("manager_id", "select id from user where name like '%王%'");
+
+        List<User> list = userMapper.selectList(queryWrapper);
+        list.forEach(System.out::println);
+    }
+
+
 }
