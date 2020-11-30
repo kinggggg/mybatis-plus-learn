@@ -2,6 +2,7 @@ package com.zeek.mp.mybatisplusfirst.entity;
 
 import lombok.Data;
 
+import java.beans.Transient;
 import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -29,5 +30,8 @@ public class User {
     private Long managerId;
 
     private LocalDateTime createTime;
+
+    // transient 修饰符表明该字段不会持久化
+    private transient String remark;
 
 }

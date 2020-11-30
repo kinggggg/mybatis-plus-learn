@@ -28,13 +28,20 @@ public class InsertTest {
     public void insert1() {
 
         User user = new User();
-        user.setName("向南");
-        user.setAge(28);
+        user.setName("向西");
+        user.setAge(27);
         user.setManagerId(1088248166370832385l);
         user.setCreateTime(LocalDateTime.now());
+        user.setRemark("我是一个备注");
 
         userMapper.insert(user);
 
 
+    }
+
+    @Test
+    public void selectAll() {
+        List<User> list = userMapper.selectList(null);
+        list.forEach(System.out::println);
     }
 }
