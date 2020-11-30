@@ -1,5 +1,6 @@
 package com.zeek.mp.mybatisplusfirst;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zeek.mp.mybatisplusfirst.dao.EmployeeMapper;
 import com.zeek.mp.mybatisplusfirst.dao.UserMapper;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -150,6 +152,64 @@ public class SimpleTest {
 
         List<User> list = userMapper.selectList(queryWrapper);
         list.forEach(System.out::println);
+    }
 
+    /**
+     * 6、名字为王姓或者（年龄小于40并且年龄大于20并且邮箱不为空）
+     *     name like '王%' or (age<40 and age>20 and email is not null)
+     */
+    @Test
+    public void select6() {
+
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(User::getName, "王%")
+                // 默认情况下每个条件condition之间的关系为and, 如果需要为or的话, 需要显示指定
+                .or(wrapper -> wrapper.lt(User::getAge, "40").gt(User::getAge, 20).isNotNull(User::getEmail));
+
+        List<User> list = userMapper.selectList(lambdaQueryWrapper);
+        list.forEach(System.out::println);
+    }
+
+
+    /**
+     * 7、（年龄小于40或邮箱不为空）并且名字为王姓
+     *     (age<40 or email is not null) and name like '王%'
+     */
+    @Test
+    public void select7() {
+
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.and(wrapper -> wrapper.lt(User::getAge, "40").or().isNotNull(User::getEmail))
+                .like(User::getName, "王%");
+
+        List<User> list = userMapper.selectList(lambdaQueryWrapper);
+        list.forEach(System.out::println);
+    }
+
+    /**
+     * 8、年龄为30、31、34、35
+     *     age in (30、31、34、35)
+     */
+    @Test
+    public void select8() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.in(User::getAge, Arrays.asList(30, 31, 34, 35));
+
+        List<User> list = userMapper.selectList(lambdaQueryWrapper);
+        list.forEach(System.out::println);
+
+        // 返回指定字段
+        list = userMapper.selectList(lambdaQueryWrapper.select(User::getId, User::getName));
+        list.forEach(System.out::println);
+    }
+
+    /**
+     * limit 1
+     */
+    @Test
+    public void select9() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        List<User> list = userMapper.selectList(lambdaQueryWrapper.orderByDesc(User::getId).last("limit 1"));
+        list.forEach(System.out::println);
     }
 }
