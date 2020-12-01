@@ -105,7 +105,7 @@ public class SimpleTest {
     @Test
     public void select3() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name", "王")
+        queryWrapper.likeRight("name", "王")
                 .or().ge("age", 25)
                 .orderByDesc("age")
                 .orderByAsc("id");
@@ -120,11 +120,14 @@ public class SimpleTest {
     @Test
     public void select4() {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        List<Long> managerIds = userMapper.selectList(queryWrapper.like("name", "王")).stream().map(User::getId).collect(Collectors.toList());
-        queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("date(create_time)", "2019-02-14")
-                .in("manager_id", managerIds);
+//        List<Long> managerIds = userMapper.selectList(queryWrapper.like("name", "王")).stream().map(User::getId).collect(Collectors.toList());
+//        queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("date(create_time)", "2019-02-14")
+//                .in("manager_id", managerIds);
 
+        // 视频中的形式
+        queryWrapper.apply("date(create_time) = {0}", "2019-02-14")
+                .inSql("manager_id", "select id from user where name like '%王%'");
         List<User> list = userMapper.selectList(queryWrapper);
         list.forEach(System.out::println);
     }
