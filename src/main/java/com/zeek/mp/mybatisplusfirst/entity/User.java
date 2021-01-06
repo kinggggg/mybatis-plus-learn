@@ -32,7 +32,14 @@ public class User {
 
     private LocalDateTime createTime;
 
+    // 下面三种方式可以设置实体中的字段不数据库表中的字段不对应的情况
+    // 通过下面三种方式的设置时, 实体对应的字段的值均不会持久化到数据库中(数据库对应的表中没有该字段)
     // transient 修饰符表明该字段不会持久化
     private transient String remark;
+    // static 修饰符表明该字段也不会持久化
+//    private static String remark;
+    //默认的情况下exist为true, 设置为false也表明该字段不会被持久化
+//    @TableField(exist = false)
+//    private String remark;
 
 }
