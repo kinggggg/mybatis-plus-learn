@@ -197,4 +197,19 @@ public class InsertTest {
         List<User> users = userMapper.selectList(queryWrapper);
         users.forEach(System.out::println);
     }
+
+    /**
+     * 只返回满足条件的其中一条
+     * where ... limit 1
+     */
+    @Test
+    public void selectWrapper9() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("age", Arrays.asList(30, 31, 34, 35))
+                .last("limit 1");
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+
+    }
 }
