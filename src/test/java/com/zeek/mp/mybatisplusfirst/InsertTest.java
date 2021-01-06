@@ -2,7 +2,9 @@ package com.zeek.mp.mybatisplusfirst;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.junit.Assert;
@@ -50,6 +52,17 @@ public class InsertTest {
         List<Long> ids = Arrays.asList(1088248166370832385L, 1087982257332887553L);
         List<User> users = userMapper.selectBatchIds(ids);
         users.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void selectByMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", 1088248166370832385L);
+        map.put("name", "王天风");
+        // map中的列为数据库表中的字段的名称, 而不是实体中的属性名称
+        // 生成的SQL中的如下 WHERE name = ? AND id = ?
+        List<User> users = userMapper.selectByMap(map);
+        users.forEach(System.out::println);
     }
 
     @Test
