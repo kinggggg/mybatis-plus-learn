@@ -1,6 +1,7 @@
 package com.zeek.mp.mybatisplusfirst;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,19 @@ public class InsertTest {
 
         int rows = userMapper.insert(user);
         System.out.println("影响记录数:" + rows);
+    }
 
+    @Test
+    public void selectById() {
+        User user = userMapper.selectById(1088248166370832385L);
+        System.out.println(user);
+    }
+
+    @Test
+    public void selectByIds() {
+        List<Long> ids = Arrays.asList(1088248166370832385L, 1087982257332887553L);
+        List<User> users = userMapper.selectBatchIds(ids);
+        users.stream().forEach(System.out::println);
     }
 
     @Test
