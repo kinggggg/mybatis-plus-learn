@@ -6,7 +6,16 @@ spring:
 #    password: 123456789
     password: dd&me123
 
-#mybatis-plus配置控制台打印完整带参数SQL语句
+# mybatis-plus配置控制台打印完整带参数SQL语句
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 下面的配置也能打印输出SQL语句, 相对于上面的配置来说输出的信息稍微少点
+#logging:
+#  level:
+#    root: warn
+#    com.zeek.mp.mybatisplusfirst.dao: trace
+#  pattern:
+#    console: '%p%m%n'
+
