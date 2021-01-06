@@ -140,6 +140,20 @@ public class InsertTest {
 
         List<User> users = userMapper.selectList(queryWrapper);
         users.forEach(System.out::println);
+    }
 
+    /**
+     * 名字为王姓并且(年龄小于40或邮箱不为空)
+     * where name like '王%' and (age < 40 or email is not null)
+     */
+    @Test
+    public void selectByWrapper5() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.likeRight("name", "王") // 这个条件相当于 name like '%王' 作为第一部分
+                // and 里边的相当于条件 age < 40 and email is not null 作为第二部分
+                // 通过and进行连接两部分 最终的语句为 name like '王%' and (age < 40 or email is not null)
+                .and(qw -> qw.lt("age", 40).or().isNotNull("email"));
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
     }
 }
