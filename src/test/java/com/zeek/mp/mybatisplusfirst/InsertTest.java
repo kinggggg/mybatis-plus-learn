@@ -156,4 +156,18 @@ public class InsertTest {
         List<User> users = userMapper.selectList(queryWrapper);
         users.forEach(System.out::println);
     }
+
+    /**
+     * 名字为王姓或者(年龄小于40并且年龄大于20并且邮箱不为空)
+     * where name like '王%' or (age between 20 and 40 and email is not null)
+     */
+    @Test
+    public void selectByWrapper6() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.likeRight("name", "王%")
+                .or(qw -> qw.between("age", 20, 40).isNotNull("email"));
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+    }
 }
