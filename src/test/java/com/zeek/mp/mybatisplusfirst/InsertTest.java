@@ -28,14 +28,14 @@ public class InsertTest {
     public void insert1() {
 
         User user = new User();
-        user.setName("向西");
-        user.setAge(27);
-        user.setManagerId(1088248166370832385l);
+        user.setName("刘明强");
+        user.setAge(231);
+        user.setManagerId(1088248166370832385L);
         user.setCreateTime(LocalDateTime.now());
-        user.setRemark("我是一个备注");
+        // 注意: 在MP中默认的情况如果实体中的属性值为null的话, 当执行insert或者update操作的时候MP不会对值为null的列进行操作
 
-        userMapper.insert(user);
-
+        int rows = userMapper.insert(user);
+        System.out.println("影响记录数:" + rows);
 
     }
 
