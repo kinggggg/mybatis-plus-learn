@@ -184,4 +184,17 @@ public class InsertTest {
         List<User> users = userMapper.selectList(queryWrapper);
         users.forEach(System.out::println);
     }
+
+    /**
+     * 年龄为30, 31, 34, 35
+     * where age in (30, 31, 34, 35)
+     */
+    @Test
+    public void selectWrapper8() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("age", Arrays.asList(30, 31, 34, 35));
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+    }
 }
