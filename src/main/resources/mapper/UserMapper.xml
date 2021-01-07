@@ -16,4 +16,8 @@
         SELECT * FROM user ${ew.customSqlSegment}
     </select>
 
+    <select id="selectUserPage" resultMap="BaseResultMap">
+        SELECT * FROM user ${ew.customSqlSegment}
+    </select>
+
 </mapper>

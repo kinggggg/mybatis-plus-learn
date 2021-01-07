@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zeek.mp.mybatisplusfirst.entity.User;
 
 
@@ -28,4 +30,6 @@ public interface UserMapper extends BaseMapper<User> {
     // 使用注解方式. 与mybatis注解方式一样
     @Select("select id, name from user where name like '%${name}%'")
     List<User> selectAll3(@Param("name") String name);
+
+    IPage<User> selectUserPage(Page<User> page, @Param(Constants.WRAPPER) Wrapper<User> wrapper);
 }

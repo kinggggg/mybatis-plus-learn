@@ -432,11 +432,50 @@ public class MybatisPlusSimpleTest {
         lambdaQueryWrapper.gt(User::getAge, 0);
 
         Page page = new Page(0, 2);
+        // 这种方式返回的是实体对象. 也可以返回Map形式的数据
         IPage iPage = userMapper.selectPage(page, lambdaQueryWrapper);
         System.out.println("当前记录数据:" + iPage.getRecords());
         System.out.println("总记录数:" + iPage.getTotal());
         System.out.println("总页数:" + iPage.getPages());
         System.out.println("当前页:" + iPage.getCurrent());
         System.out.println("每页大小:" + iPage.getSize());
+
+        System.out.println("================");
+
+        // 这种方式查询出来的数据为map类型
+        IPage iPage1 = userMapper.selectMapsPage(page, lambdaQueryWrapper);
+        System.out.println("当前记录数据:" + iPage1.getRecords());
+        System.out.println("总记录数:" + iPage1.getTotal());
+        System.out.println("总页数:" + iPage1.getPages());
+        System.out.println("当前页:" + iPage1.getCurrent());
+        System.out.println("每页大小:" + iPage1.getSize());
+
+        // 上面两种分页查询方式都需要查询两次: 其中一次SQL查询用户获取总记录数, 另外一次SQL查询用户查询真正的数据
+        // 通过设置Page构造方法可以只查询当前的数据, 而不再查询总的记录数
+        page = new Page(1, 2, false);
+        IPage iPage2 = userMapper.selectMapsPage(page, lambdaQueryWrapper);
+        System.out.println("当前记录数据:" + iPage2.getRecords());
+        System.out.println("总记录数:" + iPage2.getTotal());
+        System.out.println("总页数:" + iPage2.getPages());
+        System.out.println("当前页:" + iPage2.getCurrent());
+        System.out.println("每页大小:" + iPage2.getSize());
+    }
+
+    @Test
+    public void selectByPage2() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.gt(User::getAge, 0);
+
+        Page page = new Page(0, 2);
+
+        // 通常情况下对于一张表的分页查询通过MP提供的分页查询方式就行, 但是在需要分页查询多个表的清下, 就需要进行自定义查询了
+        // 也可以自定义分页查询
+        IPage iPage = userMapper.selectUserPage(page, lambdaQueryWrapper);
+        System.out.println("当前记录数据:" + iPage.getRecords());
+        System.out.println("总记录数:" + iPage.getTotal());
+        System.out.println("总页数:" + iPage.getPages());
+        System.out.println("当前页:" + iPage.getCurrent());
+        System.out.println("每页大小:" + iPage.getSize());
+
     }
 }
