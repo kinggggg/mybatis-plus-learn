@@ -251,6 +251,7 @@ public class InsertTest {
 
     private void condition(String name, String email) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 使用带condition条件的查询方法可以省略在代码中if非空判断
         queryWrapper.eq(StringUtils.isNotEmpty(name), "name", name);
         queryWrapper.like(StringUtils.isNotBlank(email), "email", email);
         List<User> users = userMapper.selectList(queryWrapper);
