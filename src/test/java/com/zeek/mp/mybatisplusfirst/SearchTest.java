@@ -27,7 +27,7 @@ import com.zeek.mp.mybatisplusfirst.entity.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MybatisPlusSimpleTest {
+public class SearchTest {
 
     @Autowired
     private UserMapper userMapper;
