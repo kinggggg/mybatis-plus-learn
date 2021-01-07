@@ -395,4 +395,23 @@ public class MPTest {
 
         users.forEach(System.out::println);
     }
+
+    @Test
+    public void selectMy() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", "刘红雨");
+        queryWrapper.lt("age", 40);
+
+        List<User> users = userMapper.selectAll(queryWrapper);
+        System.out.println(users);
+
+        List<User> users1 = userMapper.selectAll2();
+        System.out.println(users1);
+
+        List<User> users2 = userMapper.selectAll3("雨");
+        System.out.println(users2);
+    }
+
+
+
 }
