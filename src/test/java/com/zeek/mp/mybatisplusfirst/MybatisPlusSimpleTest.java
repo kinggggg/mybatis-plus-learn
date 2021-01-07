@@ -17,7 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.zeek.mp.mybatisplusfirst.dao.UserMapper;
 import com.zeek.mp.mybatisplusfirst.entity.User;
@@ -424,6 +426,17 @@ public class MybatisPlusSimpleTest {
         System.out.println(users2);
     }
 
+    @Test
+    public void selectByPage() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.gt(User::getAge, 0);
 
-
+        Page page = new Page(0, 2);
+        IPage iPage = userMapper.selectPage(page, lambdaQueryWrapper);
+        System.out.println("当前记录数据:" + iPage.getRecords());
+        System.out.println("总记录数:" + iPage.getTotal());
+        System.out.println("总页数:" + iPage.getPages());
+        System.out.println("当前页:" + iPage.getCurrent());
+        System.out.println("每页大小:" + iPage.getSize());
+    }
 }
