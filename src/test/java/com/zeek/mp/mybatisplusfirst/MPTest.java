@@ -1,5 +1,7 @@
 package com.zeek.mp.mybatisplusfirst;
 
+import jdk.nashorn.internal.ir.CallNode;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,14 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.zeek.mp.mybatisplusfirst.dao.UserMapper;
 import com.zeek.mp.mybatisplusfirst.entity.User;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class InsertTest {
+public class MPTest {
 
     @Autowired
     private UserMapper userMapper;
@@ -356,5 +361,38 @@ public class InsertTest {
         // selectOne查询的结果只能是一条, 如果是多条的话, 会报错
         User result = userMapper.selectOne(queryWrapper);
         System.out.println(result);
+    }
+
+    @Test
+    public void selectLambda() {
+        // 创建LambdaQueryWrapper的三种方式
+//        LambdaQueryWrapper<User> lambdaQueryWrapper2 = new QueryWrapper<User>().lambda();
+//        LambdaQueryWrapper<User> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<User> lambdaQueryWrapper = Wrappers.lambdaQuery();
+        // 使用LambdaQueryWrapper的好处在于可以防止误写, 因为QueryWrapper中字段的名称是字符串在编译期间无法识别
+        lambdaQueryWrapper.like(User::getName, "雨")
+                .lt(User::getAge, 40);
+
+        List<User> users = userMapper.selectList(lambdaQueryWrapper);
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectLambda2() {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = Wrappers.lambdaQuery();
+        // LambdaQueryWrapper与QueryWrapper的使用基本一样
+        lambdaQueryWrapper.like(User::getName, "雨")
+                .and(lqw -> lqw.lt(User::getAge, 40).or().isNotNull(User::getEmail));
+
+        List<User> users = userMapper.selectList(lambdaQueryWrapper);
+        users.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectLambda3() {
+        List<User> users = new LambdaQueryChainWrapper<User>(userMapper).like(User::getName, "雨")
+                .lt(User::getAge, 40).list();
+
+        users.forEach(System.out::println);
     }
 }
