@@ -10,6 +10,8 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapper-locations: classpath:/com/zeek/mp/mybatisplusfirst/mapper/UserMapper.xml
+  mapper-locations: classpath:/mapper/**.xml
 
 # 下面的配置也能打印输出SQL语句, 相对于上面的配置来说输出的信息稍微少点
 #logging:
@@ -18,4 +20,5 @@ mybatis-plus:
 #    com.zeek.mp.mybatisplusfirst.dao: trace
 #  pattern:
 #    console: '%p%m%n'
+
 

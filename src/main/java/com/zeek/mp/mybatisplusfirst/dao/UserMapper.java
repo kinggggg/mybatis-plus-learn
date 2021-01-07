@@ -17,6 +17,10 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("select id, name from user ${ew.customSqlSegment}")
     List<User> selectAll(@Param(Constants.WRAPPER) Wrapper<User> wrapper);
 
+    User selectAll00(@Param(Constants.WRAPPER) Wrapper<User> wrapper);
+
+    List<User> selectAll0(@Param(Constants.WRAPPER) Wrapper<User> wrapper);
+
     // 使用注解方式. 与mybatis注解方式一样
     @Select("select id, name from user")
     List<User> selectAll2();

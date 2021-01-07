@@ -405,6 +405,18 @@ public class MPTest {
         List<User> users = userMapper.selectAll(queryWrapper);
         System.out.println(users);
 
+        System.out.println("==============");
+
+        User user = userMapper.selectAll00(queryWrapper);
+        System.out.println(user);
+
+        System.out.println("==============");
+
+        List<User> users0 = userMapper.selectAll0(queryWrapper);
+        System.out.println(users0);
+
+        System.out.println("==============");
+
         List<User> users1 = userMapper.selectAll2();
         System.out.println(users1);
 
