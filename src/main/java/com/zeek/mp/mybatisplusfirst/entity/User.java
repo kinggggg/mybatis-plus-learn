@@ -5,6 +5,7 @@ import lombok.Data;
 import java.beans.Transient;
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -22,6 +23,8 @@ public class User {
 
     // 当数据库中的字段名称与实体中的字段名称不一样的时候, 可以通过@TableField记性关联
 //    @TableField("realName")
+    // 使用带构造参数的QueryWrapper时候默认情况下是等值比较, 可以使用下面的这个注解修改这个默认的行为
+//    @TableField(condition = SqlCondition.LIKE)
     private String name;
 
     private Integer age;

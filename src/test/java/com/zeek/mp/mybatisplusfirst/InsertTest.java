@@ -256,4 +256,22 @@ public class InsertTest {
         queryWrapper.like(StringUtils.isNotBlank(email), "email", email);
         List<User> users = userMapper.selectList(queryWrapper);
     }
+
+    @Test
+    public void selectWrapperEntity() {
+
+        User userEntity = new User();
+        userEntity.setAge(20);
+        userEntity.setName("张三");
+
+        QueryWrapper<User> queryWrapper1 = new QueryWrapper<>();
+        // QueryWrapper带构造参数的方式, 当生成SQL的时候在默认的情况是对实体中不为空(""和null)的属性生成where条件
+        // 生成 WHERE name=? AND age=?
+        // 并且带构造参数的构造器生成的where条件默认情况下是等值比较, 如要修改这个行为的话, 可以在实体属性上使用注解
+        QueryWrapper<User> queryWrapper2 = new QueryWrapper<>(userEntity);
+        // 使用了带构造参数的构造器后, 仍然可以自己通过API的方式进行条件查询, 并且两种方式互相不影响!
+        queryWrapper2.like("name", "张三");
+        userMapper.selectList(queryWrapper2);
+
+    }
 }
