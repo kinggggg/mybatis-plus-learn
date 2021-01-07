@@ -210,6 +210,41 @@ public class InsertTest {
 
         List<User> users = userMapper.selectList(queryWrapper);
         users.forEach(System.out::println);
+    }
 
+    /**
+     *  名字中包含雨并且年龄小于40
+     *  name like '%雨%' and age < 40
+     *
+     *  只查询id和name字段
+     */
+    @Test
+    public void selectByWrapperSupper() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 第一种链式方式
+//        queryWrapper.select("id", "name").like("name", "雨")
+//                .lt("age", 40);
+        // 第二种方式
+        queryWrapper.select("id", "name").like("name", "雨");
+        queryWrapper.lt("age", 40);
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
+    }
+
+    /**
+     *  名字中包含雨并且年龄小于40
+     *  name like '%雨%' and age < 40
+     *
+     *  只查询id和name字段
+     */
+    @Test
+    public void selectByWrapperSupper2() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("id", "name").like("name", "雨")
+                .lt("age", 40);
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        users.forEach(System.out::println);
     }
 }
