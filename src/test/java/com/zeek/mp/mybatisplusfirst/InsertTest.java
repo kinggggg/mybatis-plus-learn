@@ -334,4 +334,16 @@ public class InsertTest {
         List<Object> objects = userMapper.selectObjs(queryWrapper);
         System.out.println(objects);
     }
+
+    @Test
+    public void selectWrapperCount() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", "雨");
+        queryWrapper.lt("age", 40);
+
+        // 当使用selectCount的时候就不能再指定要查询的数据库字段了
+        // SELECT COUNT( 1 ) FROM user WHERE name LIKE ? AND age < ?
+        Integer result = userMapper.selectCount(queryWrapper);
+        System.out.println(result);
+    }
 }
