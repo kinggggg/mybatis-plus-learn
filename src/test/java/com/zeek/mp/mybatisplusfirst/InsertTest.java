@@ -292,4 +292,23 @@ public class InsertTest {
         userMapper.selectList(queryWrapper);
 
     }
+
+    @Test
+    public void selectWrapperMaps() {
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("age").gt("age", 20);
+        // 通过selectList的查询方式时, 此时我们只需要查询出age字段的值, 但是这种
+        // 方式还是会查询出其他字段的值, 但是其他字段的值均为null, 这样的话效率比较低
+        // [User(id=null, name=null, age=40, email=null, managerId=null, createTime=null, remark=null), User(id=null, name=null, age=25, email=null, managerId=null, createTime=null, remark=null), ...
+        List<User> users = userMapper.selectList(queryWrapper);
+        System.out.println(users);
+
+        // 通过selectMaps查询出的结果中只包含要查询的字段的值
+        // [{age=40}, {age=25}, {age=28}, {age=31}, {age=32}, {age=231}]
+        List<Map<String, Object>> maps = userMapper.selectMaps(queryWrapper);
+        System.out.println(maps);
+
+
+    }
 }
