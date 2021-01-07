@@ -274,4 +274,22 @@ public class InsertTest {
         userMapper.selectList(queryWrapper2);
 
     }
+
+    @Test
+    public void selectWrapperAllEq() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        Map<String, Object> map = new HashMap<>();
+        map.put("age", 20);
+        map.put("name", null);
+        // 默认的情况下allEq对参数map中的值均作为where条件
+        // 若map某个key对应的value为null的时候, 可以使用重载的allEq方法传递参数false, 这样生成的sql中就会排除value为null的条件
+//        queryWrapper.allEq(map, false);
+
+        // 对map中的条件进行过滤: 只有当key的值为name时候才拼装条件
+        // 生成这样的SQL: SELECT id,name,age,email,manager_id,create_time FROM user WHERE name IS NULL
+        queryWrapper.allEq((t, u) -> t.equals("name"), map);
+
+        userMapper.selectList(queryWrapper);
+
+    }
 }
