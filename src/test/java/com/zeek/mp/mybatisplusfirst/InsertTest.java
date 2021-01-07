@@ -321,4 +321,17 @@ public class InsertTest {
         List<Map<String, Object>> maps = userMapper.selectMaps(queryWrapper);
         System.out.println(maps);
     }
+
+    @Test
+    public void selectWrapperObjs() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 通过使用selectMaps查询数据库表中存在的字段
+        queryWrapper.select("id", "name").like("name", "雨");
+        queryWrapper.lt("age", 40);
+
+        // selectObjs返回要查询的数据库表字段的第一列的字段值
+        // [1094590409767661570, 1094592041087729666] 可以看到虽然查询了name字段的值但是MP并没有返回
+        List<Object> objects = userMapper.selectObjs(queryWrapper);
+        System.out.println(objects);
+    }
 }
