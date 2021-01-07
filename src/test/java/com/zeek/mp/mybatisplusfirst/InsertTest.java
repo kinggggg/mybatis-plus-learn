@@ -308,7 +308,17 @@ public class InsertTest {
         // [{age=40}, {age=25}, {age=28}, {age=31}, {age=32}, {age=231}]
         List<Map<String, Object>> maps = userMapper.selectMaps(queryWrapper);
         System.out.println(maps);
+    }
 
+    @Test
+    public void selectWrapperMaps2() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 通过使用selectMaps查询数据库表中存在的字段
+        queryWrapper.select("avg(age) avg_age", "min(age) min_age", "max(age) max_age")
+                .groupBy("manager_id")
+                .having("sum(age) < 50");
 
+        List<Map<String, Object>> maps = userMapper.selectMaps(queryWrapper);
+        System.out.println(maps);
     }
 }
