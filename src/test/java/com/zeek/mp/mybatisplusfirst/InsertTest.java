@@ -346,4 +346,15 @@ public class InsertTest {
         Integer result = userMapper.selectCount(queryWrapper);
         System.out.println(result);
     }
+
+    @Test
+    public void selectWrapperOne() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", "刘红雨");
+        queryWrapper.lt("age", 40);
+
+        // selectOne查询的结果只能是一条, 如果是多条的话, 会报错
+        User result = userMapper.selectOne(queryWrapper);
+        System.out.println(result);
+    }
 }
