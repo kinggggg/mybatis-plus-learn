@@ -1,5 +1,6 @@
 package com.zeek.mp.mybatisplusfirst;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -33,5 +34,37 @@ public class ServiceTest {
         // 指定false后, 虽然查询出的数据为多条, 但是MP默认会获取第一条数据, 并且不报错
         User one = userService.getOne(Wrappers.<User>lambdaQuery().gt(User::getAge, 10), false);
         System.out.println(one);
+    }
+
+    @Test
+    public void batch() {
+
+        User user1 = new User();
+        user1.setName("徐丽1");
+
+        User user2 = new User();
+        user2.setName("徐丽2");
+
+        // 批量插入
+        boolean b = userService.saveBatch(Arrays.asList(user1, user2));
+        System.out.println(b);
+
+    }
+
+    @Test
+    public void saveOrUpdate() {
+
+        User user1 = new User();
+        user1.setName("徐丽3");
+
+        User user2 = new User();
+        user1.setId(1347385597941022722L);
+        user2.setName("徐力2");
+
+        // 批量更新或者插入: 若实体中对应的主键值有值的话对该实体进行更新操作; 若实体中对应的主键值没有值的话, 对该实体进行插入操作
+        boolean b = userService.saveOrUpdateBatch(Arrays.asList(user1, user2));
+        System.out.println(b);
+
+
     }
 }
