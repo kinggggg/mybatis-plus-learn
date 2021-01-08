@@ -2,6 +2,7 @@ package com.zeek.mp.mybatisplusadvance.entity;
 
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -24,8 +25,12 @@ public class User extends Model<User> {
 
     private Long managerId;
 
+    // 自动填充配置
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    // 自动填充配置
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     // 版本
