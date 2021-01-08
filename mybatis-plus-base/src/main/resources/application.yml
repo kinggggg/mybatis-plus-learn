@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mp?useSSL=false&serverTimezone=GMT%2B8
+    username: root
+#    password: 123456789
+    password: dd&me123
+
+# mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+#  global-config:
+#    db-config:
+#      id-type: UUID
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  mapper-locations: classpath:/com/zeek/mp/mybatisplusbase/mapper/UserMapper.xml
+  mapper-locations: classpath:/mapper/**.xml
+  # 包别名配置, 这样在xml文件中可以将实体的包路径省略
+  type-aliases-package: com.zeek.mp.mybatisplusbase.entity
+  global-config:
+    db-config:
+      insert-strategy: not_null
+
+# 下面的配置也能打印输出SQL语句, 相对于上面的配置来说输出的信息稍微少点
+#logging:
+#  level:
+#    root: warn
+#    com.zeek.mp.mybatisplusbase.dao: trace
+#  pattern:
+#    console: '%p%m%n'
+
+
