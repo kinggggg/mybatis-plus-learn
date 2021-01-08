@@ -64,7 +64,12 @@ public class ServiceTest {
         // 批量更新或者插入: 若实体中对应的主键值有值的话对该实体进行更新操作; 若实体中对应的主键值没有值的话, 对该实体进行插入操作
         boolean b = userService.saveOrUpdateBatch(Arrays.asList(user1, user2));
         System.out.println(b);
+    }
 
+    @Test
+    public void chain() {
 
+        List<User> list = userService.lambdaQuery().gt(User::getAge, 10).list();
+        list.forEach(System.out::println);
     }
 }
