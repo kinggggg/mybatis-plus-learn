@@ -72,4 +72,11 @@ public class ServiceTest {
         List<User> list = userService.lambdaQuery().gt(User::getAge, 10).list();
         list.forEach(System.out::println);
     }
+
+    @Test
+    public void chain2() {
+
+        boolean update = userService.lambdaUpdate().set(User::getAge, 30).eq(User::getAge, 33).update();
+        System.out.println(update);
+    }
 }
