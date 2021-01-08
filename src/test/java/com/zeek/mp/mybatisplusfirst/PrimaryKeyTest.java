@@ -24,7 +24,7 @@ public class PrimaryKeyTest {
      *      mybatis-plus:
      *         global-config:
      *          db-config:
-     *           id-type: UUID
+     *           id-type: UUID 
      *    并且如果即设置了全局主键策略又但对某个实体设置了局部的主键策略, 那么局部主键策略优先
      * IdType.INPUT: 主键的策略由用户自己来维护
      * 一下三种主键策略的前提是用户实体中没有设置主键的值, 若用户实体中设置了主键的值的话, 就使用用户实体中设置的主键的值

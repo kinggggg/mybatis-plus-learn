@@ -8,7 +8,7 @@
         <result column="name" property="name"/>
     </resultMap>
 
-    <select id="selectAll00" resultType="com.zeek.mp.mybatisplusfirst.entity.User">
+    <select id="selectAll00" resultType="User">
         SELECT * FROM user ${ew.customSqlSegment}
     </select>
 
