@@ -6,6 +6,7 @@
 
     <modules>
         <module>mybatis-plus-base</module>
+        <module>mybatis-plus-advance</module>
     </modules>
 
     <parent>
