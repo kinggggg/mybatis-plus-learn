@@ -66,6 +66,9 @@ public class ServiceTest {
         System.out.println(b);
     }
 
+    /**
+     * 使用service进行链式查询
+     */
     @Test
     public void chain() {
 
@@ -73,10 +76,22 @@ public class ServiceTest {
         list.forEach(System.out::println);
     }
 
+    /**
+     * 使用service进行链式更新
+     */
     @Test
     public void chain2() {
 
         boolean update = userService.lambdaUpdate().set(User::getAge, 30).eq(User::getAge, 33).update();
         System.out.println(update);
+    }
+
+    /**
+     * 使用service进行链式删除
+     */
+    @Test
+    public void chain3() {
+        boolean remove = userService.lambdaUpdate().eq(User::getAge, 30).remove();
+        System.out.println(remove);
     }
 }
