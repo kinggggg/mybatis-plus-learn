@@ -2,6 +2,7 @@ package com.zeek.mp.mybatisplusadvance.entity;
 
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -35,6 +36,8 @@ public class User extends Model<User> {
     @TableLogic
     // 除了可以全局指定逻辑删除的值外(在application.properties中指指定), 还可以针对具体的实体分别指定逻辑删除和逻辑未删除的标识, 如下
 //    @TableLogic(value = "0", delval = "1")
+    // 当查询的时候查询的字段不包含逻辑删除的字段
+    @TableField(select = false)
     private Integer deleted;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zeek.mp.mybatisplusadvance.dao.UserMapper;
 import com.zeek.mp.mybatisplusadvance.entity.User;
 
@@ -60,5 +61,14 @@ public class LogicDeleteTest {
          */
         int rows = userMapper.updateById(user);
         System.out.println(rows);
+    }
+
+    @Test
+    public void mySelectList() {
+        /**
+         * 自定义的SQL查询默认的情况下在where中MP不会自动加上逻辑删除的条件, 此时就需要程序员自己加
+         */
+        List<User> users = userMapper.mySelectList(Wrappers.<User>lambdaQuery().gt(User::getAge, 25));
+        users.forEach(System.out::println);
     }
 }
