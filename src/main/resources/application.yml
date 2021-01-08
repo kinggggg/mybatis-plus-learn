@@ -8,6 +8,9 @@ spring:
 
 # mybatis-plus配置控制台打印完整带参数SQL语句
 mybatis-plus:
+  global-config:
+    db-config:
+      id-type: UUID
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  mapper-locations: classpath:/com/zeek/mp/mybatisplusfirst/mapper/UserMapper.xml
