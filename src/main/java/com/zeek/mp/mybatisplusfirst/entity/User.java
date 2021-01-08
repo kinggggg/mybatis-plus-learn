@@ -9,12 +9,13 @@ import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 
 @Data
 // 如果实体的名称与表的名称不一样的话, 通过@TableName注解进行对应
 //@TableName("mp_user")
-public class User {
+public class User extends Model<User> {
 
     // 默认的情况下mp会找名称为id的字段作为主键, 当表中没有名称为id的字段时, 直接插入会报错, 此时需要通过通过注解进行显示指定
     @TableId
