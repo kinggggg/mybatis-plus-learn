@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zeek.mp.mybatisplusadvance.configuration.MybatisPlusConfig;
 import com.zeek.mp.mybatisplusadvance.dao.UserMapper;
 import com.zeek.mp.mybatisplusadvance.entity.User;
 
@@ -72,10 +73,13 @@ public class TenantTest {
     @Test
     public void delete() {
         userMapper.deleteById(1347806535261306882L);
-    }
+   }
 
     @Test
     public void selectById() {
+        // 测试MP动态表明解析
+//        MybatisPlusConfig.myTableName.set("user_2021");
+
         User user = userMapper.selectById(1087982257332887553L);
         System.out.println(user);
     }
