@@ -1,5 +1,6 @@
 package com.zeek.mp.mybatisplusadvance;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.Test;
@@ -26,8 +27,8 @@ public class FillTest {
     @Test
     public void insert() {
         User user = new User();
-        user.setName("小红");
-        user.setAge(34);
+        user.setName("小王");
+        user.setAge(35);
 
         int rows = userMapper.insert(user);
         System.out.println("影响行数: " + rows);
@@ -38,6 +39,7 @@ public class FillTest {
         User user = new User();
         user.setId(1088248166370832385L);
         user.setAge(28);
+//        user.setUpdateTime(LocalDateTime.now());
 
         int rows = userMapper.updateById(user);
         System.out.println(rows);

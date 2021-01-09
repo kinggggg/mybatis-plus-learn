@@ -22,22 +22,36 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
 
-    // 配置插入操作时自动填充
+    /**
+     *  配置插入操作时自动填充
+     *  默认情况下所有的插入操作都会被该方法拦截并进行判断.
+     *  因此可能存在这样一种情况: 有些实体中并没有名称为createTime的字段, 此时就不需要自动填充
+     *      针对这种情况, 可以先进行判断然后再进行填充
+     *
+     */
     @Override
     public void insertFill(MetaObject metaObject) {
         System.out.println("insertFile");
 
-        // createTime是实体中的属性名称不是数据库中的字段名称
-        setInsertFieldValByName("createTime", LocalDateTime.now(), metaObject);
+        boolean has = metaObject.hasSetter("createTime1");
+        if (has) {
+            // createTime是实体中的属性名称不是数据库中的字段名称
+            setInsertFieldValByName("createTime", LocalDateTime.now(), metaObject);
+        }
     }
 
-    // 配置更新操作时自动填充
+    /**
+     * 配置更新操作时自动填充
+     *
+     */
     @Override
     public void updateFill(MetaObject metaObject) {
-        System.out.println("updateFill");
 
-        // 同上
-        setUpdateFieldValByName("updateTime", LocalDateTime.now(), metaObject);
-
+        // 也可以判断当要自动填充的属性如果已经有值的话, 就不让MP再帮我们自己填充
+        Object value = getFieldValByName("updateTime", metaObject);
+        if (value == null) {
+            System.out.println("updateFill");
+            setUpdateFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+        }
     }
 }
