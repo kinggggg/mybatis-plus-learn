@@ -31,10 +31,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        System.out.println("insertFile");
 
         boolean has = metaObject.hasSetter("createTime1");
         if (has) {
+            System.out.println("insertFile");
             // createTime是实体中的属性名称不是数据库中的字段名称
             setInsertFieldValByName("createTime", LocalDateTime.now(), metaObject);
         }
