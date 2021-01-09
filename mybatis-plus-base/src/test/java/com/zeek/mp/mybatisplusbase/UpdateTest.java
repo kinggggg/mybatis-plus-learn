@@ -47,7 +47,7 @@ public class UpdateTest {
 
     @Test
     public void updateByWrapper2() {
-        // 与查询类型当向UpdateWrapper构造函数中传递一个实体时, 实体中不为null的属性将作为where条件
+        // 与查询类似当向UpdateWrapper构造函数中传递一个实体时, 实体中不为null的属性将作为where条件
         User whereUser = new User();
         whereUser.setName("李一伟");
 
