@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import lombok.Data;
@@ -34,6 +35,7 @@ public class User extends Model<User> {
     private LocalDateTime updateTime;
 
     // 版本
+    @Version
     private Integer version;
 
     // 逻辑删除标识(0: 未删除 1: 已删除)

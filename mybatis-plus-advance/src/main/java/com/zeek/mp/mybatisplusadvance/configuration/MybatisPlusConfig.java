@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
+import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 
 /**
@@ -21,4 +22,11 @@ public class MybatisPlusConfig {
 //    public ISqlInjector sqlInjector() {
 //        return new LogicSqlInjector();
 //    }
+
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInterceptor();
+    }
+
+
 }
