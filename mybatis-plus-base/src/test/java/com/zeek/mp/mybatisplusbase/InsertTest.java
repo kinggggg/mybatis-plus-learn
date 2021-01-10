@@ -24,8 +24,8 @@ public class InsertTest {
     public void insert1() {
 
         User user = new User();
-        user.setName("刘明强003");
-        user.setAge(33);
+        user.setName("刘明强005");
+//        user.setAge(44);
         // 注意: 在MP中默认的情况如果实体中的属性值为null的话, 当执行insert或者update操作的时候MP不会对值为null的列进行操作
         // mybatis-plus:
         //  global-config:
