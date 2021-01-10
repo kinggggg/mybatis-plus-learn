@@ -42,7 +42,6 @@ public class InsertTest {
 
     @Test
     public void insert2() {
-
         User user = new User();
         user.setName("刘明强002");
         user.setAge(22);
