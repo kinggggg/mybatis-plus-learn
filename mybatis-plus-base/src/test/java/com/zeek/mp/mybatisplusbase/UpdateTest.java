@@ -1,5 +1,7 @@
 package com.zeek.mp.mybatisplusbase;
 
+import java.util.Objects;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +89,14 @@ public class UpdateTest {
         boolean update = new LambdaUpdateChainWrapper<User>(userMapper)
                 .eq(User::getName, "李艺伟").set(User::getName, "李一伟").update();
         System.out.println(update);
+    }
+
+    @Test
+    public void updateByWrapper6() {
+        String name = "";
+        LambdaUpdateWrapper lambdaUpdateWrapper = new LambdaUpdateWrapper<User>()
+                .eq(false, User::getName, name) // 如果是false, 会忽略eq条件, 会更新所有记录
+                .set(User::getName, "李一伟");
+        userMapper.update(null, lambdaUpdateWrapper);
     }
 }
